@@ -37,7 +37,7 @@ def main(args):  # Write the function name for the main data preparation logic
     df['Segment'] = labelencoder.fit_transform(df['Segment'])  # Fit and transform the 'Segment' column
 
     # Step 2: Split the dataset into training and testing sets using train_test_split with specified test size and random state.  
-    train_data, test_data = train_test_split(df, test_size=args.train_test_ratio, random_state=42)  # Split the dataset into training and testing sets
+    train_df, test_df = train_test_split(df, test_size=args.train_test_ratio, random_state=42)  # Split the dataset into training and testing sets
 
     # Step 3: Save the training and testing datasets as CSV files in separate directories for easier access and organization.
     # Create directories for train and test datasets
@@ -45,12 +45,16 @@ def main(args):  # Write the function name for the main data preparation logic
     os.makedirs(args.test_data, exist_ok=True)  # Create the test_data directory
 
     # Save the training and testing datasets as CSV files
-    train_data.to_csv(os.path.join(args.train_data, 'data.csv'), index=False)  # Save the train_data as a CSV file
-    test_data.to_csv(os.path.join(args.test_data, 'data.csv'), index=False)  # Save the test_data as a CSV file
+    train_df.to_csv(os.path.join(args.train_data, 'data.csv'), index=False)  # Save the train_data as a CSV file
+    test_df.to_csv(os.path.join(args.test_data, 'data.csv'), index=False)  # Save the test_data as a CSV file
 
     # Step 4: Log the number of rows in the training and testing datasets as metrics for tracking and evaluation.
-    mlflow.log_metric(f"Number of rows in train data: {train_data.shape[0]}") # Log the number of rows in the train_data
-    mlflow.log_metric(f"Number of rows in test data: {test_data.shape[0]}") # Log the number of rows in the test_data
+    mlflow.log_metric(f"Number of rows in train data: {train_df.shape[0]}") # Log the number of rows in the train_data
+    mlflow.log_metric(f"Number of rows in test data: {test_df.shape[0]}") # Log the number of rows in the test_data
+
+    print("Data preparation completed successfully!")  # Print a message to indicate that the data preparation process is complete
+    print(f"Number of rows in train data: {train_df.shape[0]}")
+    print(f"Number of rows in test data: {test_df.shape[0]}")
 
 
 if __name__ == "__main__":
