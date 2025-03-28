@@ -37,7 +37,7 @@ def main(args):  # Write the function name for the main data preparation logic
     df['Segment'] = labelencoder.fit_transform(df['Segment'])  # Fit and transform the 'Segment' column
 
     # Step 2: Split the dataset into training and testing sets using train_test_split with specified test size and random state.  
-    train_df, test_df = train_test_split(df, test_size=args.train_test_ratio, random_state=42)  # Split the dataset into training and testing sets
+    train_df, test_df = train_test_split(df, test_size=args.test_train_ratio, random_state=42)  # Split the dataset into training and testing sets
 
     # Step 3: Save the training and testing datasets as CSV files in separate directories for easier access and organization.
     # Create directories for train and test datasets
