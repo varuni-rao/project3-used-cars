@@ -49,8 +49,8 @@ def main(args):  # Write the function name for the main data preparation logic
     test_df.to_csv(os.path.join(args.test_data, 'data.csv'), index=False)  # Save the test_data as a CSV file
 
     # Step 4: Log the number of rows in the training and testing datasets as metrics for tracking and evaluation.
-    mlflow.log_metric(f"Number of rows in train data: {train_df.shape[0]}") # Log the number of rows in the train_data
-    mlflow.log_metric(f"Number of rows in test data: {test_df.shape[0]}") # Log the number of rows in the test_data
+    mlflow.log_metric("train_size", train_df.shape[0]) # Log the number of rows in the train_data
+    mlflow.log_metric("test_size", test_df.shape[0]) # Log the number of rows in the test_data
 
     print("Data preparation completed successfully!")  # Print a message to indicate that the data preparation process is complete
     print(f"Number of rows in train data: {train_df.shape[0]}")

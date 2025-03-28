@@ -40,23 +40,23 @@ def main(args):
     test_df = pd.read_csv(Path(args.test_data)/"data.csv")  
 
     # Step 3: Split the data into features (X) and target (y) for both train and test datasets. Specify the target column name.
-    X_train = train_df.drop('price', axis=1)
-    y_train = train_df['price']
-    X_test = test_df.drop('price', axis=1)
-    y_test = test_df['price']
+    X_train = train_df.drop('price', axis=1).values
+    y_train = train_df['price'].values
+    X_test = test_df.drop('price', axis=1).values
+    y_test = test_df['price'].values
 
     # Step 4: Initialize the RandomForest Regressor with specified hyperparameters, and train the model using the training data.
-    rf_model = RandomForestRegressor(n_estimators=args.n_estimators, max_depth=args.max_depth, random_state=42)
-    rf_model.fit(X_train, y_train)
-
+    rf_model = RandomForestRegressor(n_estimators=args.n_estimators, max_depth=args.max_depth)
+    rf_model = rf_model.fit(X_train, y_train)
+    
     # Step 5: Log model hyperparameters like 'n_estimators' and 'max_depth' for tracking purposes in MLflow.  
     mlflow.log_param("model", "random_forest_regressor")
     mlflow.log_param("n_estimators", args.n_estimators)
     mlflow.log_param("max_depth", args.max_depth)
 
     # Step 6: Predict target values on the test dataset using the trained model, and calculate the mean squared error.  
-    yhat_test = rf_model.predict(X_test)
-    mse=mean_squared_error(y_test, yhat_test)
+    rf_predictions = rf_model.predict(X_test)
+    mse = mean_squared_error(y_test, rf_predictions)
     
     # Step 7: Log the MSE metric in MLflow for model evaluation, and save the trained model to the specified output path.
     print(f'MSE of Random Forest Regressor on test set: {mse:.2f}')
