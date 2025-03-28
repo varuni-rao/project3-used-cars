@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     lines = [
         f"Raw data path: {args.raw_data}",  # Print the raw_data path
-        f"Train dataset output path: {args.train_test_ratio}",  # Print the train_data path
+        f"Train dataset output path: {args.test_train_ratio}",  # Print the train_data path
         f"Test dataset path: {args.train_data}",  # Print the test_data path
         f"Test-train ratio: {args.test_data}",  # Print the test_train_ratio
     ]
